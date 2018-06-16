@@ -61,7 +61,27 @@ class CountryController {
         });
 
         return {
-            exchange: unionBy(oldItems, repository.getOfficialExchange().exchange, 'abbreviation')
+            exchange: unionBy([...oldItems, {
+                abbreviation: 'RUB',
+                rate: '3.2050'
+            }], repository.getOfficialExchange().exchange, 'abbreviation')
+        };
+    }
+
+    async getPriorBankExchange() {
+        const oldItems = await this.getMtbBankExchange();
+
+        return {
+            exchange: unionBy([{
+                abbreviation: 'USD',
+                rate: '2,011'
+            }, {
+                abbreviation: 'EUR',
+                rate: '2.333'
+            }, {
+                abbreviation: 'RUB',
+                rate: '3.26'
+            }], oldItems.exchange, 'abbreviation')
         };
     }
 }

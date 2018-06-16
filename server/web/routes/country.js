@@ -14,6 +14,7 @@ class CountryRoute extends BaseRoute {
         router.get('/country', this.registerHandler('get'));
         router.get('/exchange/official', this.registerHandler('getOfficialExchange'));
         router.get('/exchange/mtbBank', this.registerHandler('getMtbBankExchange'));
+        router.get('/exchange/priorBank', this.registerHandler('getPriorBankExchange'));
     }
 }
 
