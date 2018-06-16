@@ -31,7 +31,7 @@ class CountryController {
 
             return {
                 country,
-                currency: countryInfo && countryInfo.currency
+                currency: (countryInfo && countryInfo.currency) || 'EUR'
             };
         }
 
