@@ -3,9 +3,9 @@
 const axios = require('axios');
 const getCountry = require('country-currency-map').getCountry;
 
-const apiKey = 'AIzaSyBwKjMHo4XYDudr6o0lb28tE15J84pQRoI';
+const apiKey = process.env.GOOGLE_KEY;
 
-const exchangeUrl = 'http://www.nbrb.by/API/ExRates/Rates?Periodicity=0&ParamMode=1';
+const exchangeUrl = process.env.EXCHANGE_URL;
 
 const OK = 200;
 
