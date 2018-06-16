@@ -1,0 +1,28 @@
+{
+  "name": "serverApi",
+  "version": "0.0.1",
+  "scripts": {
+    "coverage": "NODE_ENV=test NODE_CONFIG_DIR=server/config node ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --ui tdd -R spec -t 10000 --recursive server/tests && node node_modules/istanbul/lib/cli.js report clover",
+    "precommit": "eslint ./server server.js",
+    "complexity": "node ./node_modules/.bin/plato -e .eslintrc -r -d complexity server"
+  },
+  "engines": {
+    "node": "9.11.1",
+    "npm": "5.6.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "config": "^1.26.1",
+    "country-currency-map": "^1.0.8",
+    "koa": "^2.2.0",
+    "koa-body": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1",
+    "koa-validate": "^1.0.7",
+    "lodash": "^4.17.4",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
+}
