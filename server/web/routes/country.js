@@ -12,7 +12,7 @@ class CountryRoute extends BaseRoute {
         router.prefix('/travel');
 
         router.get('/country', this.registerHandler('get'));
-        router.get('/exchange', this.registerHandler('getExchange'));
+        router.get('/exchange/official', this.registerHandler('getOfficialExchange'));
     }
 }
 

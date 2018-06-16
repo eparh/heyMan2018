@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const getCountry = require('country-currency-map').getCountry;
+const repository = require('../../dao/repository');
 
 const apiKey = process.env.GOOGLE_KEY;
 
@@ -36,8 +37,10 @@ class CountryController {
         return null;
     }
 
-    async getExchange() {
-        const exchange = await axios.get(exchangeUrl);
+    async getOfficialExchange() {
+        return repository.getOfficialExchange();
+
+        /* const exchange = await axios.get(exchangeUrl);
 
         return {
             exchange: Array.isArray(exchange.data) && exchange.data.map(item => {
@@ -46,7 +49,7 @@ class CountryController {
                     rate: item.Cur_OfficialRate
                 };
             })
-        };
+        };*/
     }
 }
 
