@@ -1,12 +1,13 @@
 'use strict';
 
 const axios = require('axios');
+const convert = require('xml-js');
+const unionBy = require('lodash/unionBy');
 const getCountry = require('country-currency-map').getCountry;
 const repository = require('../../dao/repository');
-
 const apiKey = process.env.GOOGLE_KEY;
 
-const exchangeUrl = process.env.EXCHANGE_URL;
+const exchangeUrl = 'https://www.mtbank.by/currxml.php?ver=0';
 
 const OK = 200;
 
@@ -39,17 +40,29 @@ class CountryController {
 
     async getOfficialExchange() {
         return repository.getOfficialExchange();
+    }
 
-        /* const exchange = await axios.get(exchangeUrl);
+
+    async getMtbBankExchange() {
+        const response = await axios.get(exchangeUrl);
+
+        const resultJSON = response ? await convert.xml2json(response.data, {
+            compact: true
+        }) : '{}';
+
+        const result = JSON.parse(resultJSON);
+
+        const exchangeItems = result && result.rates && result.rates.best && result.rates.best.currency;
+        const oldItems = exchangeItems.map(item => {
+            return {
+                rate: item && item.sale && item.sale._text,
+                abbreviation: item && item.code && item.code._text
+            };
+        });
 
         return {
-            exchange: Array.isArray(exchange.data) && exchange.data.map(item => {
-                return {
-                    abbreviation: item.Cur_Abbreviation,
-                    rate: item.Cur_OfficialRate
-                };
-            })
-        };*/
+            exchange: unionBy(oldItems, repository.getOfficialExchange().exchange, 'abbreviation')
+        };
     }
 }
 
